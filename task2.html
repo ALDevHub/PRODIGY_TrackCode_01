@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Navigation Bar</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #333;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    z-index: 1000;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 15px 20px;
+    display: block;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: #575757;
+    color: #fff;
+}
+
+.scrolled {
+    background-color: #222; /* Change this color when scrolled */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Add shadow when scrolled */
+}
+
+.content {
+    padding-top: 70px; /* Space for fixed navbar */
+}
+
+section {
+    padding: 50px;
+    height: 100vh; /* Full height for each section */
+    border-bottom: 1px solid #ccc;
+}
+
+h1, h2 {
+    margin: 0;
+}
+  
+</style>
+<body>
+
+    <nav id="navbar">
+        <ul>
+            <li><a href="#home" data-color="#f4f4f4">Home</a></li>
+            <li><a href="#about" data-color="#ffcccb">About</a></li>
+            <li><a href="#services" data-color="#add8e6">Services</a></li>
+            <li><a href="#contact" data-color="#90ee90">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="content">
+        <section id="home">
+            <h1>Welcome to Our Website</h1>
+            <p>Scroll down to see the navigation bar change.</p>
+        </section>
+        <section id="about">
+            <h2>About Us</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </section>
+        <section id="services">
+            <h2>Our Services</h2>
+            <p>We offer a variety of services to meet your needs.</p>
+        </section>
+        <section id="contact">
+            <h2>Contact Us</h2>
+            <p>Feel free to reach out for more information.</p>
+        </section>
+    </div>
+
+    <script>
+      window.onscroll = function() {
+    const navbar = document.getElementById("navbar");
+    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+        navbar.classList.add("scrolled");
+    } else {
+        navbar.classList.remove("scrolled");
+    }
+};
+
+// Change background color on click
+const links = document.querySelectorAll('#navbar a');
+
+links.forEach(link => {
+    link.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default anchor click behavior
+        const color = this.getAttribute('data-color'); // Get the color from data attribute
+        document.body.style.backgroundColor = color; // Change the background color
+        // Optionally scroll to the section
+        const targetId = this.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+        if (targetSection) {
+            targetSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+});
+    </script>
+</body>
+</html>
